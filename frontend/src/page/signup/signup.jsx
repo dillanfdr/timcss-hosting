@@ -45,7 +45,7 @@ export function Signup() {
     console.log('Signup Data:', signupData); // Debugging data
 
     axios
-      .post('http://localhost:5000/signup', signupData)
+      .post(import.meta.env.VITE_API_URL + '/signup', signupData)
       .then((response) => {
         alert('Signup successful! Please log in.');
         // localStorage.setItem("token", response.data.token);

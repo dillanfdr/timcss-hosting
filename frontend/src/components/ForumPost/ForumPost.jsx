@@ -26,9 +26,10 @@ const ForumPost = ({ data }) => {
   const isTokenValid = token && token.trim() !== ""; // Sederhana: cek apakah token ada
   const localProfileImage = isTokenValid ? localStorage.getItem("profile_image") : null;
   const profileImageUrl = localProfileImage
-    ? `http://localhost:5000/${localProfileImage}`
+    ? `${import.meta.env.VITE_API_URL}/${localProfileImage}`
     : "https://via.placeholder.com/150";
     
+    console.log("profileImageUrl", profileImageUrl);
   useEffect(() => {
     if (!token) {
       alert("No token found, please log in again.");
@@ -46,8 +47,8 @@ const ForumPost = ({ data }) => {
   
     try {
       const endpoint = isLiked
-        ? `http://localhost:5000/like-forum/${postId}/unlike`
-        : `http://localhost:5000/like-forum/${postId}/like`;
+        ? `${import.meta.env.VITE_API_URL}/like-forum/${postId}/unlike`
+        : `${import.meta.env.VITE_API_URL}/like-forum/${postId}/like`;
   
       const method = isLiked ? "DELETE" : "POST";
   
@@ -84,7 +85,7 @@ const ForumPost = ({ data }) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/delete-forum/${id}`, {
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/${id}`, {
         headers: { Authorization: token },
       });
       console.log(response.data.message);
@@ -110,7 +111,7 @@ const ForumPost = ({ data }) => {
       };
   
       const response = await axios.put(
-        `http://localhost:5000/update-forum/${id}`,
+        `${import.meta.env.VITE_API_URL}/${id}`,
         updatedData,
         { headers: { Authorization: token } }
       );

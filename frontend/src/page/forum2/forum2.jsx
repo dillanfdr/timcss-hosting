@@ -33,14 +33,14 @@ export function Forum2() {
     const isTokenValid = token && token.trim() !== ""; // Sederhana: cek apakah token ada
     const localProfileImage = isTokenValid ? localStorage.getItem("profile_image") : null;
     const profileImage = localProfileImage
-      ? `http://localhost:5000/${localProfileImage}`
+      ? `${import.meta.env.VITE_API_URL}/${localProfileImage}`
       : "https://via.placeholder.com/150";
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:5000/users', {
+        const response = await axios.get(import.meta.env.VITE_API_URL + '/users', {
           headers: {
             Authorization: token,
           },
@@ -50,7 +50,7 @@ export function Forum2() {
         setUsername(response.data.username || "");
         setProfileImage(
           response.data.profile_image
-            ? `http://localhost:5000/${response.data.profile_image}`
+            ? `${import.meta.env.VITE_API_URL}/${response.data.profile_image}`
             : 'https://via.placeholder.com/150'
         );
         setUserId(response.data.id || null);
@@ -75,7 +75,7 @@ export function Forum2() {
       }
 
       try {
-        const response = await axios.get(`http://localhost:5000/get-forum/${postId}`, {
+        const response = await axios.get(import.meta.env.VITE_API_URL + `/get-forum/${postId}`, {
           headers: { Authorization: token },
         });
         setPost(response.data);
@@ -98,7 +98,7 @@ export function Forum2() {
       setLikeCount(newLikeCount);
 
       await axios.post(
-        `http://localhost:5000/like-forum/${postId}`,
+        import.meta.env.VITE_API_URL + `/like-forum/${postId}`,
         { likeStatus: newLikeStatus },
         { headers: { Authorization: token } }
       );
@@ -110,7 +110,7 @@ export function Forum2() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/reply-forum/${postId}`, {
+        const response = await axios.get(import.meta.env.VITE_API_URL + `/reply-forum/${postId}`, {
           headers: { Authorization: token },
         });
         setComments(response.data);

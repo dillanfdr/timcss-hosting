@@ -46,7 +46,7 @@ export function Forum1() {
   const isTokenValid = token && token.trim() !== ""; // Sederhana: cek apakah token ada
   const localProfileImage = isTokenValid ? localStorage.getItem("profile_image") : null;
   const profileImage = localProfileImage
-    ? `http://localhost:5000/${localProfileImage}`
+    ? `${import.meta.env.VITE_API_URL}/${localProfileImage}`
     : "https://via.placeholder.com/150";
     
   const [name, setName] = useState(""); // Default value is an empty string
@@ -64,7 +64,7 @@ useEffect(() => {
     const fetchUserProfile = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:5000/users', {
+        const response = await axios.get(import.meta.env.VITE_API_URL + '/users', {
           headers: {
             Authorization: token,
           },
@@ -75,7 +75,7 @@ useEffect(() => {
         setUsername(response.data.username || ""); // Default to empty string
         setProfileImage(
           response.data.profile_image
-            ? `http://localhost:5000/${response.data.profile_image}`
+            ? `${import.meta.env.VITE_API_URL}/${response.data.profile_image}`
             : 'https://via.placeholder.com/150'
         ); // Default profile image
         setUserId(response.data.id || null); // Store the user ID
@@ -171,7 +171,7 @@ useEffect(() => {
   
     try {
       // Send a POST request to your backend API (adjust the URL as needed)
-      const response = await fetch('http://localhost:5000/create-forum', {
+      const response = await fetch(import.meta.env.VITE_API_URL + '/create-forum', {
         method: 'POST',
         headers: {
           Authorization: token, // Assuming you're using token-based authentication
@@ -217,7 +217,7 @@ useEffect(() => {
       window.location.href = "/login"; // Redirect if not logged in
     }
     setLoading(true);
-    fetch(`http://localhost:5000/get-forum`, {
+    fetch(import.meta.env.VITE_API_URL + `/get-forum`, {
       headers: {
         Authorization: token, // Include token in the request header
       },

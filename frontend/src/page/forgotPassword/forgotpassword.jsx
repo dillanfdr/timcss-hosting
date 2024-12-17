@@ -41,7 +41,7 @@ export function ForgotPassword() {
 
     // Send reset request to the backend
     axios
-      .post('http://localhost:5000/forgot-password', {
+      .post(import.meta.env.VITE_API_URL + '/forgot-password', {
         email: formData.email,
         password: formData.newPassword, // Menggunakan key yang sesuai untuk backend
       })

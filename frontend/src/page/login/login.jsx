@@ -22,7 +22,7 @@ export function Login() {
     e.preventDefault();
 
     axios
-      .post('http://localhost:5000/login', loginData)
+      .post(import.meta.env.VITE_API_URL + '/login', loginData)
       .then((response) => {
         console.log('Login response:', response.data); // Debugging untuk melihat respons server
 

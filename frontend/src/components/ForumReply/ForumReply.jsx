@@ -11,7 +11,7 @@ function ForumReply({ forumId }) {
   useEffect(() => {
     const fetchReplies = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/reply-forum/${forumId}`);
+        const response = await axios.get(import.meta.env.VITE_API_URL +  `/${forumId}`);
         setLocalComments(response.data); // Set replies data to state
       } catch (error) {
         console.error("Error fetching replies", error);
@@ -27,7 +27,7 @@ function ForumReply({ forumId }) {
   const submitReply = async (commentId) => {
     if (replyText.trim()) {
       try {
-        const response = await axios.post("http://localhost:5000/reply-forum", {
+        const response = await axios.post(import.meta.env.VITE_API_URL + "/reply-forum", {
           forum_id: forumId,
           reply_text: replyText,
         });

@@ -16,7 +16,7 @@ const Profile = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [profileImage, setProfileImage] = useState(
     localprofileimage
-    ? `http://localhost:5000/${localprofileimage}`
+    ? `${import.meta.env.VITE_API_URL}/${localprofileimage}`
     : "https://via.placeholder.com/150");
   const [name, setName] = useState(localName || ""); // Default value is an empty string
   const [username, setUsername] = useState(localUsername || "") // Default value is an empty string
@@ -41,7 +41,7 @@ console.log('LocalStorage Username:', localUsername);
       window.location.href = "/login"; // Redirect if not logged in
     }
     setLoading(true);
-    fetch(`http://localhost:5000/get-forum`, {
+    fetch(import.meta.env.VITE_API_URL + `/get-forum`, {
       headers: {
         Authorization: token, // Include token in the request header
       },
@@ -72,7 +72,7 @@ console.log('LocalStorage Username:', localUsername);
       setLoading(true); // Tampilkan indikator loading saat data sedang diambil
   
       try {
-        const response = await axios.get('http://localhost:5000/users', {
+        const response = await axios.get(import.meta.env.VITE_API_URL + '/users', {
           headers: {
             Authorization: token,
           },
@@ -86,7 +86,7 @@ console.log('LocalStorage Username:', localUsername);
           setUsername(response.data.username || username); // Sama seperti di atas
           setProfileImage(
             response.data.profile_image
-              ? `http://localhost:5000/${response.data.profile_image}`
+              ? `${import.meta.env.VITE_API_URL}/${response.data.profile_image}`
               : profileImage // Gunakan nilai saat ini jika data kosong
           );
           setUserId(response.data.id || userId); // Sama seperti di atas
@@ -169,7 +169,7 @@ console.log('LocalStorage Username:', localUsername);
     }
 
     try {
-      const response = await axios.put("http://localhost:5000/profile-image", formData, {
+      const response = await axios.put(import.meta.env.VITE_API_URL + "/profile-image", formData, {
         headers: {
         'Content-Type': 'multipart/form-data',
           Authorization: token,
@@ -180,7 +180,7 @@ console.log('LocalStorage Username:', localUsername);
 
       // Update state dengan URL gambar profil baru dari backend
       // setProfileImage(response.data.data.profile_image); // Memperbarui URL gambar
-      setProfileImage(`http://localhost:5000/${response.data.data.profile_image}`)
+      setProfileImage(`${import.meta.env.VITE_API_URL}/${response.data.data.profile_image}`)
       localStorage.setItem("profile_image", response.data.data.profile_image)
       setName(name);
       setUsername(username);
