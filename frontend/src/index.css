@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: 'Optician';
+  src: url('/src/assets/fonts/OpticianSans.ttf') format('truetype'); /* Sesuaikan path */
+  font-weight: normal;
+  font-style: normal;
+}
+
