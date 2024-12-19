@@ -1,9 +1,6 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize";;
 
-const DB_NAME = process.env.DATABASE_NAME;
-console.log("DB_NAME", DB_NAME);
-
-const db = new Sequelize('ecosphere','root','',{
+const db = new Sequelize('ecosphere','tom','Tom-1234',{
     host : "localhost",
     dialect: "mysql"
 })
