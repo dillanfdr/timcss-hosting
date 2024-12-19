@@ -133,7 +133,7 @@ export function Forum2() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/delete-forum/${postId}`, {
+      await axios.delete(import.meta.env.VITE_API_URL + `/delete-forum/${postId}`, {
         headers: { Authorization: token },
       });
       navigate("/forum1"); // Redirect after deleting the post
@@ -146,7 +146,7 @@ export function Forum2() {
   const handleUpdate = async (title, caption, hashtags, imageUrl) => {
     try {
       await axios.put(
-        `http://localhost:5000/update-forum/${postId}`,
+        import.meta.env.VITE_API_URL + `/update-forum/${postId}`,
         {
           title,
           caption,

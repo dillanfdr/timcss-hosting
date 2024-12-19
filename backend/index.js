@@ -31,4 +31,5 @@ try {
 app.use(express.json());
 app.use(router);
 
-app.listen(5000, () => console.log("Server running at port 5000"));
+const PORT = 3016
+app.listen(PORT, () => console.log("Server running at port ", PORT));
